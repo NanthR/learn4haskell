@@ -1,5 +1,4 @@
 {- 👋 Welcome, Brave folks!
-
 Happy to see you here, on the way to the wonderful Functional Programming land
 with Haskell! Fight the fierce Monad Dragon and save the globe from despicable
 runtime exceptions!
