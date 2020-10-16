@@ -216,11 +216,11 @@ True :: Bool
 
 A pair of boolean and char:
 >>> :t (True, 'x')
-<INSERT THE RESULT INSTEAD OF THE TEXT>
+(True, 'x') :: (Bool, Char)
 
 Boolean negation:
 >>> :t not
-(True, 'x') :: (Bool, Char)
+not :: Bool -> Bool
 
 Boolean 'and' operator:
 >>> :t (&&)
@@ -541,11 +541,17 @@ Casual reminder about adding top-level type signatures for all functions :)
 -}
 
 mid :: Int -> Int -> Int -> Int
-mid x y z
-    | x < y && y < z || z < y && y < x = y
-    | y < x && x < z || z < x && x < y = x
-    | otherwise = z
-
+mid x y z = x + y + z - min (min x y) z - max (max x y) z
+  where
+    min :: Int -> Int -> Int
+    min x y
+      | x < y = x
+      | otherwise = y
+    max :: Int -> Int -> Int
+    max x y
+      | x > y = x
+      | otherwise = y
+    
 {- |
 =⚔️= Task 8
 
@@ -630,12 +636,12 @@ specifying complex expressions.
 -}
 
 sumLast2 :: Int -> Int
-sumLast2 a = last a + last2 a
+sumLast2 a = last a + last2 a 
   where
     last :: Int -> Int
-    last x = mod x 10
+    last x = mod (abs x) 10
     last2 :: Int -> Int
-    last2 y = mod (div y 10) 10
+    last2 y =  mod (div (abs y) 10) 10
 
 
 {- |
