@@ -542,16 +542,7 @@ Casual reminder about adding top-level type signatures for all functions :)
 
 mid :: Int -> Int -> Int -> Int
 mid x y z = x + y + z - min (min x y) z - max (max x y) z
-  where
-    min :: Int -> Int -> Int
-    min x y
-      | x < y = x
-      | otherwise = y
-    max :: Int -> Int -> Int
-    max x y
-      | x > y = x
-      | otherwise = y
-    
+   
 {- |
 =⚔️= Task 8
 
@@ -664,8 +655,8 @@ aren't ready for this boss yet!
 
 firstDigit :: Int -> Int
 firstDigit n
-    | div n 10 == 0 = n
-    | otherwise = firstDigit (div n 10)
+    | div (abs n) 10 == 0 = abs n
+    | otherwise = firstDigit (div (abs n) 10)
 
 {-
 You did it! Now it is time to the open pull request with your changes
