@@ -734,8 +734,7 @@ value of the element itself
 🕯 HINT: Use combination of 'map' and 'replicate'
 -}
 smartReplicate :: [Int] -> [Int]
-smartReplicate [] = []
-smartReplicate (x:xs) = replicate x x ++ smartReplicate xs
+smartReplicate = concatMap (\x -> replicate x x)
 
 {- |
 =⚔️= Task 9
@@ -855,9 +854,9 @@ rotate :: Int -> [Int] -> [Int]
 rotate n l
   | n < 0 = []
   | null l = []
-  | otherwise = 
-      let len = length l
-      in take len (drop (mod n len) (cycle l)) -- mod because a rotate of len just returns the same thing
+  | n `mod` len == 0 = l
+  | otherwise = take len (drop (mod n len) (cycle l))
+  where len = length l
 
 {- |
 =💣= Task 12*
@@ -873,10 +872,14 @@ and reverses it.
   function, but in this task, you need to implement it manually. No
   cheating!
 -}
+{- Instead of taking the first element and appending, could use an empty list and add to the beginning of that
+    as elements are removed. Start of list add -> More efficient -}
 rewind :: [Int] -> [Int]
-rewind [] = []
-rewind (x:xs) = rewind xs ++ [x]
-
+rewind l = go [] l
+  where
+    go :: [Int] -> [Int] -> [Int]
+    go reversed [] = reversed
+    go reversed (x:xs) = go (x:reversed) xs
 
 {-
 You did it! Now it is time to the open pull request with your changes
